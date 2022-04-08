@@ -1,2 +1,5 @@
 include ':app'
 rootProject.name = "ARCameraDemo"
+
+include ':unityLibrary'
+project(':unityLibrary').projectDir=new File('/Users/innerpeacer/UnityProjects/ARCamera/Builds/Android/unityLibrary')

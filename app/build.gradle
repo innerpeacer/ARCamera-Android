@@ -5,6 +5,7 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
+    ndkPath '/Applications/Unity/Hub/Editor/2020.3.30f1c1/PlaybackEngines/AndroidPlayer/NDK'
 
     defaultConfig {
         applicationId "com.weitech.ar.arcamerademo"
@@ -29,7 +30,8 @@ android {
 }
 
 dependencies {
-
+    implementation project(':unityLibrary')
+    implementation fileTree(dir: project(':unityLibrary').getProjectDir().toString() + ('/libs'), includes: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
