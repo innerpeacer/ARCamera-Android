@@ -20,7 +20,10 @@ public class WTUnitySDK {
     }
 
     public void ChangeCubeColor(String color) {
-        unityPlayer.UnitySendMessage("AppController", "ChangeCubeColor", color);
+        UnityPlayer.UnitySendMessage("AppController", "ChangeCubeColor", color);
+    }
 
+    public void sendUnityMessage(String object, String methodName, String param) {
+        UnityPlayer.UnitySendMessage(object, methodName, param);
     }
 }

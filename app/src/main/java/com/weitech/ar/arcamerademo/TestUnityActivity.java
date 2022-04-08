@@ -10,15 +10,23 @@ import com.unity3d.player.UnityPlayerActivity;
 import com.weitech.ar.sdk.WTUnitySDK;
 import com.weitech.ar.sdk.bridge.WTUnityCallNativeProxy;
 
+import java.io.File;
+
 
 public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCallNativeProxy.WTUnityTestingCallbackListener {
     static final String TAG = "TestUnityActivity";
 
     WTUnitySDK unitySDK;
+    File modelDir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        modelDir = this.getExternalFilesDir("Models");
+        if (!modelDir.exists()) {
+            modelDir.mkdirs();
+        }
 
         unitySDK = WTUnitySDK.SharedInstance();
         unitySDK.init(mUnityPlayer);
@@ -30,18 +38,46 @@ public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCal
 
     private void addButtonsToUnityFrame() {
         FrameLayout layout = mUnityPlayer;
+        int buttonWidth = 500;
+        int buttonHeight = 200;
 
         {
-            Button myButton = new Button(this);
-            myButton.setText("ChangeColor");
-            myButton.setX(320);
-            myButton.setY(500);
-            myButton.setOnClickListener(new View.OnClickListener() {
+            Button button = new Button(this);
+            button.setText("Load Model");
+            button.setX(500);
+            button.setY(400);
+            button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    unitySDK.ChangeCubeColor(Math.random() > 0.5 ? "red" : "blue");
+                    sendUnityLoadModel();
                 }
             });
-            layout.addView(myButton, 300, 200);
+            layout.addView(button, buttonWidth, buttonHeight);
+        }
+
+        {
+            Button button = new Button(this);
+            button.setText("Load Mvx");
+            button.setX(500);
+            button.setY(700);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    sendUnityLoadMvx();
+                }
+            });
+            layout.addView(button, buttonWidth, buttonHeight);
+        }
+
+        {
+            Button button = new Button(this);
+            button.setText("Send Unity Message");
+            button.setX(100);
+            button.setY(2000);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    sendUnityMessage();
+                }
+            });
+            layout.addView(button, buttonWidth, buttonHeight);
         }
     }
 
@@ -57,5 +93,27 @@ public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCal
         Log.i(TAG, "Callback: unityDidChangeCubeScaleXY");
         Log.i(TAG, xy + ", " + z);
     }
-    
+
+    private void sendUnityMessage() {
+        Log.i(TAG, "sendUnityMessage");
+        String[] colorArray = {"red", "blue", "yellow", "black"};
+        int randomIndex = (int) (Math.random() * 4 % 4);
+        unitySDK.sendUnityMessage("AppTest", "ChangeCubeColor", colorArray[randomIndex]);
+    }
+
+    private void sendUnityLoadModel() {
+        String[] models = {"Parrot", "Flamingo", "Soldier", "Xbot", "Horse", "Stork"};
+        int count = models.length;
+        int randomIndex = (int) (Math.random() * count % count);
+
+        String modelName = String.format("%s.glb", models[randomIndex]);
+        File modelFile = new File(modelDir, modelName);
+        unitySDK.sendUnityMessage("AppTest", "AddGltfModel", modelFile.toString());
+    }
+
+    private void sendUnityLoadMvx() {
+        Log.i(TAG, "sendUnityLoadMvx");
+        File mvxFile = new File(modelDir, "MVX/1.mvx");
+        unitySDK.sendUnityMessage("AppTest", "AddMvxModel", mvxFile.toString());
+    }
 }

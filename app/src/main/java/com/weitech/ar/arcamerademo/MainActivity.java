@@ -22,20 +22,20 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.main);
         {
             Button button = new Button(this);
-            button.setText("Show Unity");
-            button.setX(200);
+            button.setText("AppTest");
+            button.setX(400);
             button.setY(500);
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    startUnity();
+                    startTestUnity();
                 }
             });
             layout.addView(button);
         }
     }
 
-    private void startUnity() {
+    private void startTestUnity() {
         Intent intent = new Intent(this, TestUnityActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
