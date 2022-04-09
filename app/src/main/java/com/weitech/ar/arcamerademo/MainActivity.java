@@ -2,7 +2,6 @@ package com.weitech.ar.arcamerademo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,24 +18,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtons() {
-        ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.main);
+        ConstraintLayout layout = findViewById(R.id.main);
         {
             Button button = new Button(this);
             button.setText("AppTest");
             button.setX(400);
             button.setY(500);
 
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    startTestUnity();
-                }
-            });
+            button.setOnClickListener(v -> startTestUnity());
+            layout.addView(button);
+        }
+        {
+            Button button = new Button(this);
+            button.setText("AR Camera");
+            button.setX(400);
+            button.setY(1000);
+
+            button.setOnClickListener(v -> startCameraUnity());
             layout.addView(button);
         }
     }
 
     private void startTestUnity() {
         Intent intent = new Intent(this, TestUnityActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+
+    private void startCameraUnity() {
+        Intent intent = new Intent(this, ARCameraActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }

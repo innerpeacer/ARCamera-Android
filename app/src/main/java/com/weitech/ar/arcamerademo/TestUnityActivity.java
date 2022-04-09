@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import com.unity3d.player.UnityPlayerActivity;
 import com.weitech.ar.sdk.WTUnitySDK;
 import com.weitech.ar.sdk.bridge.WTUnityCallNativeProxy;
+import com.weitech.ar.sdk.bridge.WTUnityCallbackUtils;
 
 import java.io.File;
 
@@ -29,11 +30,11 @@ public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCal
         }
 
         unitySDK = WTUnitySDK.SharedInstance();
-        unitySDK.init(mUnityPlayer);
+        unitySDK.switchToScene("AppTest");
 
         addButtonsToUnityFrame();
 
-        WTUnityCallNativeProxy.getInstance().registerUnityTestingCallbackListener(this);
+        WTUnityCallbackUtils.getInstance().registerUnityTestingCallbackListener(this);
     }
 
     private void addButtonsToUnityFrame() {
@@ -98,7 +99,7 @@ public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCal
         Log.i(TAG, "sendUnityMessage");
         String[] colorArray = {"red", "blue", "yellow", "black"};
         int randomIndex = (int) (Math.random() * 4 % 4);
-        unitySDK.sendUnityMessage("AppTest", "ChangeCubeColor", colorArray[randomIndex]);
+        unitySDK.SendUnityMessage("AppTest", "ChangeCubeColor", colorArray[randomIndex]);
     }
 
     private void sendUnityLoadModel() {
@@ -108,12 +109,12 @@ public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCal
 
         String modelName = String.format("%s.glb", models[randomIndex]);
         File modelFile = new File(modelDir, modelName);
-        unitySDK.sendUnityMessage("AppTest", "AddGltfModel", modelFile.toString());
+        unitySDK.SendUnityMessage("AppTest", "AddGltfModel", modelFile.toString());
     }
 
     private void sendUnityLoadMvx() {
         Log.i(TAG, "sendUnityLoadMvx");
         File mvxFile = new File(modelDir, "MVX/1.mvx");
-        unitySDK.sendUnityMessage("AppTest", "AddMvxModel", mvxFile.toString());
+        unitySDK.SendUnityMessage("AppTest", "AddMvxModel", mvxFile.toString());
     }
 }
