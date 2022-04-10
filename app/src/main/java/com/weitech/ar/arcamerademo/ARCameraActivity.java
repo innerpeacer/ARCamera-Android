@@ -1,5 +1,6 @@
 package com.weitech.ar.arcamerademo;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -142,6 +143,17 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
     public void unityDidFinishPhotoing(String pID, String path) {
         Log.i(TAG, "unityDidFinishPhotoing: " + pID);
         Log.i(TAG, path);
+
+        File imageFile = new File(path);
+        Log.i(TAG, "Image Exist: " + imageFile.exists());
+        Log.i(TAG, String.format("File Size: %.2f MB", imageFile.length() / 1024.0 / 1024.0));
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+        int imageWidth = options.outWidth;
+        int imageHeight = options.outHeight;
+        Log.i(TAG, "Width-Height: " + imageWidth + "-" + imageHeight);
     }
 
     @Override
@@ -153,5 +165,9 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
     public void unityDidFinishRecording(String vID, String path) {
         Log.i(TAG, "unityDidFinishRecording: " + vID);
         Log.i(TAG, path);
+
+        File videoFile = new File(path);
+        Log.i(TAG, "Video Exist: " + videoFile.exists());
+        Log.i(TAG, String.format("File Size: %.2f MB", videoFile.length() / 1024.0 / 1024.0));
     }
 }
