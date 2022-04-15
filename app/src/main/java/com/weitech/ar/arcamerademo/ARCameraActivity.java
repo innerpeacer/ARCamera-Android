@@ -42,6 +42,7 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         addButtonsToUnityFrame();
 //
         WTUnityCallbackUtils.getInstance().registerUnityShootingCallbackListener(this);
+        unitySDK.setShootingParams(WTUnitySDK.WTShootingParams.HD);
     }
 
     private void addButtonsToUnityFrame() {

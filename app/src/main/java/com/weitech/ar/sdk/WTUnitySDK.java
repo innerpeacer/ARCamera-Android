@@ -4,6 +4,11 @@ import com.unity3d.player.UnityPlayer;
 
 public class WTUnitySDK {
 
+    public enum WTShootingParams {
+        HD,
+        SD
+    }
+
     private static WTUnitySDK sharedInstance = new WTUnitySDK();
 
     private static final String AR_CAMERA_SCENE_CONTROLLER = "ARCameraSceneController";
@@ -27,6 +32,23 @@ public class WTUnitySDK {
     public void useCommon3DModel(String modelPath) {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseModel", modelPath);
     }
+
+    public void setShootingParams(WTShootingParams params) {
+        double photoSuperSize = 1;
+        double videoSuperSize = 0.5;
+        int videoFrameRate = 24;
+
+        if (params == WTShootingParams.HD) {
+            photoSuperSize = 2;
+            videoSuperSize = 1;
+            videoFrameRate = 24;
+        }
+
+        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SetPhotoSuperSize", String.format("%f", photoSuperSize));
+        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SetVideoSuperSize", String.format("%f", videoSuperSize));
+        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SetVideoFrameRate", String.format("%d", videoFrameRate));
+    }
+
 
     public void takePhoto(String pID) {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "TakePhoto", pID);
