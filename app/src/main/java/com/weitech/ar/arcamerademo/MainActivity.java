@@ -37,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
             button.setOnClickListener(v -> startCameraUnity());
             layout.addView(button);
         }
+        {
+            Button button = new Button(this);
+            button.setText("AR Preview");
+            button.setX(400);
+            button.setY(1500);
+
+            button.setOnClickListener(v -> startPreviewUnity());
+            layout.addView(button);
+        }
     }
 
     private void startTestUnity() {
@@ -47,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void startCameraUnity() {
         Intent intent = new Intent(this, ARCameraActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+
+    private void startPreviewUnity() {
+        Intent intent = new Intent(this, ARPreviewActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }

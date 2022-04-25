@@ -1,5 +1,6 @@
 package com.weitech.ar.arcamerademo;
 
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +50,7 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         FrameLayout layout = mUnityPlayer;
 
         WindowManager wm = getWindowManager();
-        int height = wm.getCurrentWindowMetrics().getBounds().height();
+        int height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
         {
             modelView = (LinearLayout) getLayoutInflater().inflate(R.layout.model_view, null);

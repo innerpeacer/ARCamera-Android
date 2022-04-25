@@ -23,6 +23,9 @@
         <activity
             android:name="com.weitech.ar.arcamerademo.ARCameraActivity"
             android:process=":Unity"></activity>
+        <activity
+            android:name="com.weitech.ar.arcamerademo.ARPreviewActivity"
+            android:process=":Unity"></activity>
     </application>
 
 </manifest>

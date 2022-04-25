@@ -12,6 +12,7 @@ public class WTUnitySDK {
     private static WTUnitySDK sharedInstance = new WTUnitySDK();
 
     private static final String AR_CAMERA_SCENE_CONTROLLER = "ARCameraSceneController";
+    private static final String AR_CAMERA_PREVIEW_CONTROLLER = "ARPreviewSceneController";
 
     private WTUnitySDK() {
 
@@ -60,6 +61,15 @@ public class WTUnitySDK {
 
     public void stopRecordingVideo() {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "StopRecordingVideo", "");
+    }
+
+    public void previewMantisVisionModel(String modelPath) {
+        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "PreviewMvxModel", modelPath);
+    }
+
+    public void setPreviewCameraDistance(float d) {
+        if (d <= 0) return;
+        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetPreviewCameraDistance", String.format("-%f", d));
     }
 
     public void ChangeCubeColor(String color) {
