@@ -8,11 +8,13 @@ import android.widget.FrameLayout;
 
 import com.unity3d.player.UnityPlayerActivity;
 import com.weitech.ar.sdk.WTUnitySDK;
+import com.weitech.ar.sdk.bridge.WTUnityCallNativeProxy;
+import com.weitech.ar.sdk.bridge.WTUnityCallbackUtils;
 
 import java.io.File;
 
 
-public class ARPreviewActivity extends UnityPlayerActivity {
+public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCallNativeProxy.WTUnitySceneControllerCallbackListener {
     static final String TAG = "ARPreviewActivity";
 
     WTUnitySDK unitySDK;
@@ -28,6 +30,7 @@ public class ARPreviewActivity extends UnityPlayerActivity {
         }
 
         unitySDK = WTUnitySDK.SharedInstance();
+        WTUnityCallbackUtils.registerUnitySceneControllerCallbackListener(this);
         unitySDK.switchToScene("ARPreviewScene");
 
         addButtonsToUnityFrame();
@@ -64,6 +67,22 @@ public class ARPreviewActivity extends UnityPlayerActivity {
             layout.addView(button, buttonWidth, buttonHeight);
         }
     }
+
+
+    @Override
+    public void unityDidLoadScene(String sceneName) {
+        Log.i(TAG, "======== unityDidLoadScene: " + sceneName);
+        if (sceneName.equals("ARPreviewScene")) {
+            previewMvxModel1();
+        }
+    }
+
+
+    @Override
+    public void unityDidUnloadScene(String sceneName) {
+        Log.i(TAG, "======== unityDidUnloadScene: " + sceneName);
+    }
+
 
     private void previewMvxModel1() {
         Log.i(TAG, "previewMvxModel1");

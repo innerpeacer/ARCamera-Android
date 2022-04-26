@@ -8,6 +8,11 @@
 //        void unityDidChangeCubeColor(String color);
 //    }
 //
+//    public interface WTUnitySceneControllerCallbackListener {
+//        void unityDidLoadScene(String sceneName);
+//
+//        void unityDidUnloadScene(String sceneName);
+//    }
 //
 //    public interface WTUnityShootingCallbackListener {
 //        void unityDidFinishPhotoing(String pID, String path);
@@ -15,6 +20,22 @@
 //        void unityDidStartRecording(String vID);
 //
 //        void unityDidFinishRecording(String vID, String path);
+//    }
+//
+//    public interface WTModelHandlingCallbackListener {
+//        void unityDidFinishLoadingModel(int modelType, String modelPath);
+//
+//        void unityDidFailedLoadingModel(int modelType, String modelPath, String description);
+//
+//        void unityDidPlaceModel(int modelType, String modelID);
+//
+//        void unityDidSelectModel(int modelType, String modelID);
+//
+//        void unityDidUnSelectModel(int modelType, String modelID);
+//
+//        void unityDidRemoveModel(int modelType, String modelID);
+//
+//        void unityDidFailedRemovingModel(String modelID, String description);
 //    }
 //}
 //

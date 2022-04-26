@@ -11,6 +11,29 @@
 //        return instance;
 //    }
 //
+//    //  ---------------- WTUnitySceneControllerCallbackListener ----------------
+//    private static WTUnityCallNativeProxy.WTUnitySceneControllerCallbackListener sceneControllerCallbackListener;
+//
+//    public static void registerUnitySceneControllerCallbackListener(WTUnityCallNativeProxy.WTUnitySceneControllerCallbackListener listener) {
+//        sceneControllerCallbackListener = listener;
+//    }
+//
+//    public static void unregisterUnitySceneControllerCallbackListener() {
+//        sceneControllerCallbackListener = null;
+//    }
+//
+//    void NotifySceneLoaded(String sceneName) {
+//        if (sceneControllerCallbackListener != null) {
+//            sceneControllerCallbackListener.unityDidLoadScene(sceneName);
+//        }
+//    }
+//
+//    void NotifySceneUnLoaded(String sceneName) {
+//        if (sceneControllerCallbackListener != null) {
+//            sceneControllerCallbackListener.unityDidUnloadScene(sceneName);
+//        }
+//    }
+//
 //    //  ---------------- WTUnityShootingCallbackListener ----------------
 //    private static WTUnityCallNativeProxy.WTUnityShootingCallbackListener shootingCallbackListener;
 //
@@ -22,21 +45,76 @@
 //        shootingCallbackListener = null;
 //    }
 //
-//    void notifyFinishPhotoing(String pID, String path) {
+//    void NotifyFinishPhotoing(String pID, String path) {
 //        if (shootingCallbackListener != null) {
 //            shootingCallbackListener.unityDidFinishPhotoing(pID, path);
 //        }
 //    }
 //
-//    void notifyStartRecording(String vID) {
+//    void NotifyStartRecording(String vID) {
 //        if (shootingCallbackListener != null) {
 //            shootingCallbackListener.unityDidStartRecording(vID);
 //        }
 //    }
 //
-//    void notifyFinishRecording(String vID, String path) {
+//    void NotifyFinishRecording(String vID, String path) {
 //        if (shootingCallbackListener != null) {
 //            shootingCallbackListener.unityDidFinishRecording(vID, path);
+//        }
+//    }
+//
+//    //  ---------------- WTModelHandlingCallbackListener ----------------
+//    private static WTUnityCallNativeProxy.WTModelHandlingCallbackListener modelHandlingCallbackListener;
+//
+//    public static void registerModelHandlingCallbackListener(WTUnityCallNativeProxy.WTModelHandlingCallbackListener listener) {
+//        modelHandlingCallbackListener = listener;
+//    }
+//
+//    public static void unregisterModelHandlingCallbackListener() {
+//        modelHandlingCallbackListener = null;
+//    }
+//
+//    void NotifyFinishLoadingModel(int modelType, String modelPath) {
+//        if (modelHandlingCallbackListener != null) {
+//            modelHandlingCallbackListener.unityDidFinishLoadingModel(modelType, modelPath);
+//        }
+//    }
+//
+//
+//    void NotifyFailedLoadingModel(int modelType, String modelPath, String description) {
+//        if (modelHandlingCallbackListener != null) {
+//            modelHandlingCallbackListener.unityDidFailedLoadingModel(modelType, modelPath, description);
+//        }
+//    }
+//
+//
+//    void NotifyPlaceModel(int modelType, String modelID) {
+//        if (modelHandlingCallbackListener != null) {
+//            modelHandlingCallbackListener.unityDidPlaceModel(modelType, modelID);
+//        }
+//    }
+//
+//    void NotifySelectModel(int modelType, String modelID) {
+//        if (modelHandlingCallbackListener != null) {
+//            modelHandlingCallbackListener.unityDidSelectModel(modelType, modelID);
+//        }
+//    }
+//
+//    void NotifyUnSelectModel(int modelType, String modelID) {
+//        if (modelHandlingCallbackListener != null) {
+//            modelHandlingCallbackListener.unityDidUnSelectModel(modelType, modelID);
+//        }
+//    }
+//
+//    void NotifyRemoveModel(int modelType, String modelID) {
+//        if (modelHandlingCallbackListener != null) {
+//            modelHandlingCallbackListener.unityDidRemoveModel(modelType, modelID);
+//        }
+//    }
+//
+//    void NotifyFailedRemovingModel(String modelID, String description) {
+//        if (modelHandlingCallbackListener != null) {
+//            modelHandlingCallbackListener.unityDidFailedRemovingModel(modelID, description);
 //        }
 //    }
 //
@@ -53,13 +131,13 @@
 //        testingCallbackListener = null;
 //    }
 //
-//    void notifyCubeColorChanged(String color) {
+//    void NotifyCubeColorChanged(String color) {
 //        if (testingCallbackListener != null) {
 //            testingCallbackListener.unityDidChangeCubeColor(color);
 //        }
 //    }
 //
-//    void notifyCubeScaleChanged(float xy, float z) {
+//    void NotifyCubeScaleChanged(float xy, float z) {
 //        if (testingCallbackListener != null) {
 //            testingCallbackListener.unityDidChangeCubeScale(xy, z);
 //        }

@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -19,7 +18,7 @@ import com.weitech.ar.sdk.bridge.WTUnityCallbackUtils;
 import java.io.File;
 
 
-public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCallNativeProxy.WTUnityShootingCallbackListener {
+public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCallNativeProxy.WTUnityShootingCallbackListener, WTUnityCallNativeProxy.WTModelHandlingCallbackListener {
     static final String TAG = "ARCameraActivity";
 
     WTUnitySDK unitySDK;
@@ -28,6 +27,9 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
 
     LinearLayout shootingView;
     LinearLayout modelView;
+    LinearLayout removeView;
+
+    String selectedModelObjectID = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +44,14 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
 //
         addButtonsToUnityFrame();
 //
-        WTUnityCallbackUtils.getInstance().registerUnityShootingCallbackListener(this);
+        WTUnityCallbackUtils.registerUnityShootingCallbackListener(this);
+        WTUnityCallbackUtils.registerModelHandlingCallbackListener(this);
         unitySDK.setShootingParams(WTUnitySDK.WTShootingParams.HD);
     }
 
     private void addButtonsToUnityFrame() {
         FrameLayout layout = mUnityPlayer;
 
-        WindowManager wm = getWindowManager();
         int height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
         {
@@ -98,6 +100,33 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
             shootingView.setVisibility(View.INVISIBLE);
         }
 
+        {
+            removeView = (LinearLayout) getLayoutInflater().inflate(R.layout.remove_view, null);
+            removeView.setY(500);
+            removeView.setX(50);
+            layout.addView(removeView);
+
+            ImageButton removeButton = removeView.findViewById(R.id.removeButton);
+            removeButton.setOnClickListener((view -> {
+                RemoveModelObject();
+            }));
+//            ShowRemoveView(false);
+        }
+    }
+
+    private void ShowRemoveView(boolean show) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG, "Show Remove View: " + show);
+                removeView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+            }
+        });
+    }
+
+    private void RemoveModelObject() {
+        Log.i(TAG, "RemoveModelObject");
+        unitySDK.removeModelObject(selectedModelObjectID);
     }
 
     private void SwitchView() {
@@ -171,5 +200,50 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         File videoFile = new File(path);
         Log.i(TAG, "Video Exist: " + videoFile.exists());
         Log.i(TAG, String.format("File Size: %.2f MB", videoFile.length() / 1024.0 / 1024.0));
+    }
+
+
+    @Override
+    public void unityDidFinishLoadingModel(int modelType, String modelPath) {
+        Log.i(TAG, String.format("======== Did Load Model: %s", modelPath));
+
+    }
+
+    @Override
+    public void unityDidFailedLoadingModel(int modelType, String modelPath, String description) {
+        Log.i(TAG, String.format("======== Failed Load Model: %s", description));
+    }
+
+    @Override
+    public void unityDidPlaceModel(int modelType, String modelID) {
+        String type = (modelType == WTUnitySDK.WTModelType.MantisVisionHD.getValue()) ? "Mantis" : "3D";
+        Log.i(TAG, String.format("======== Did Place %s Model: %s", type, modelID));
+    }
+
+    @Override
+    public void unityDidSelectModel(int modelType, String modelID) {
+        String type = (modelType == WTUnitySDK.WTModelType.MantisVisionHD.getValue()) ? "Mantis" : "3D";
+        Log.i(TAG, String.format("======== Did Select %s Model: %s", type, modelID));
+        selectedModelObjectID = modelID;
+        ShowRemoveView(true);
+    }
+
+    @Override
+    public void unityDidUnSelectModel(int modelType, String modelID) {
+        String type = (modelType == WTUnitySDK.WTModelType.MantisVisionHD.getValue()) ? "Mantis" : "3D";
+        Log.i(TAG, String.format("======== Did UnSelect %s Model: %s", type, modelID));
+        selectedModelObjectID = null;
+        ShowRemoveView(false);
+    }
+
+    @Override
+    public void unityDidRemoveModel(int modelType, String modelID) {
+        String type = (modelType == WTUnitySDK.WTModelType.MantisVisionHD.getValue()) ? "Mantis" : "3D";
+        Log.i(TAG, String.format("======== Did Remove %s Model: %s", type, modelID));
+    }
+
+    @Override
+    public void unityDidFailedRemovingModel(String modelID, String description) {
+        Log.i(TAG, String.format("======== Failed Remove Model: %s", description));
     }
 }

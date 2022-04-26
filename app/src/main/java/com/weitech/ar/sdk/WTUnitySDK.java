@@ -9,6 +9,23 @@ public class WTUnitySDK {
         SD
     }
 
+    public enum WTModelType {
+        Common3D(1),
+        MantisVisionHD(2),
+//        MantisVisionSD(3)
+        ;
+
+        private int value;
+
+        WTModelType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     private static WTUnitySDK sharedInstance = new WTUnitySDK();
 
     private static final String AR_CAMERA_SCENE_CONTROLLER = "ARCameraSceneController";
@@ -33,6 +50,12 @@ public class WTUnitySDK {
     public void useCommon3DModel(String modelPath) {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseModel", modelPath);
     }
+
+    public void removeModelObject(String objectID) {
+        if (objectID == null) objectID = "";
+        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "RemovePlacedModelObject", objectID);
+    }
+
 
     public void setShootingParams(WTShootingParams params) {
         double photoSuperSize = 1;
