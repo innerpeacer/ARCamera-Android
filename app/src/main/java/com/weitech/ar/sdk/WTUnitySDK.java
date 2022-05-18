@@ -2,6 +2,8 @@ package com.weitech.ar.sdk;
 
 import com.unity3d.player.UnityPlayer;
 
+import org.json.JSONObject;
+
 public class WTUnitySDK {
 
     public enum WTShootingParams {
@@ -98,6 +100,19 @@ public class WTUnitySDK {
     public void setPreviewCameraDistance(float d) {
         if (d <= 0) return;
         UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetPreviewCameraDistance", String.format("-%f", d));
+    }
+
+    public void setPreviewBackgroundColor(float red, float green, float blue, float alpha) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("r", red);
+            json.put("g", green);
+            json.put("b", blue);
+            json.put("a", alpha);
+        } catch (Exception e) {
+
+        }
+        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetBackgroundColor", json.toString());
     }
 
     public void ChangeCubeColor(String color) {

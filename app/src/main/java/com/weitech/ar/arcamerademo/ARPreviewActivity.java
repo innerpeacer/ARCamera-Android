@@ -73,6 +73,7 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
     public void unityDidLoadScene(String sceneName) {
         Log.i(TAG, "======== unityDidLoadScene: " + sceneName);
         if (sceneName.equals("ARPreviewScene")) {
+            unitySDK.setPreviewBackgroundColor(0.5f, 0.0f, 0.8f, 1.0f);
             previewMvxModel1();
         }
     }
