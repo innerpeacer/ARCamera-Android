@@ -143,7 +143,8 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         Log.i(TAG, "UseCommon3DModel");
         File modelFile = new File(modelDir, "Flamingo.glb");
         Log.i(TAG, modelFile.toString());
-        unitySDK.useCommon3DModel(modelFile.toString());
+//        unitySDK.useCommon3DModel(modelFile.toString());
+        unitySDK.useCommon3DModelAsync(modelFile.toString());
         SwitchView();
     }
 

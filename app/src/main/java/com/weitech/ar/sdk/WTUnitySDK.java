@@ -51,6 +51,11 @@ public class WTUnitySDK {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseModel", modelPath);
     }
 
+    public void useCommon3DModelAsync(String modelPath) {
+        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseModelAsync", modelPath);
+    }
+
+
     public void removeModelObject(String objectID) {
         if (objectID == null) objectID = "";
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "RemovePlacedModelObject", objectID);
