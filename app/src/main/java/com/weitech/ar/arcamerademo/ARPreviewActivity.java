@@ -73,8 +73,8 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
     public void unityDidLoadScene(String sceneName) {
         Log.i(TAG, "======== unityDidLoadScene: " + sceneName);
         if (sceneName.equals("ARPreviewScene")) {
-            unitySDK.setPreviewBackgroundColor(0.5f, 0.0f, 0.8f, 1.0f);
-            unitySDK.setPreviewCameraRect(0, 0.2f, 1.0f, 0.6f);
+//            unitySDK.setPreviewBackgroundColor(0.5f, 0.0f, 0.8f, 1.0f);
+            unitySDK.setPreviewCameraRect(0, 0.1f, 1.0f, 0.8f);
             previewMvxModel1();
         }
     }
@@ -90,13 +90,13 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
         Log.i(TAG, "previewMvxModel1");
         File mvxFile = new File(modelDir, "MVX/1.mvx");
         unitySDK.previewMantisVisionModel(mvxFile.toString());
-        unitySDK.setPreviewCameraDistance(2);
+        unitySDK.setPreviewCameraField(-0.614f, 0.614f, -0.472f, 0.472f, -0.019f, 1.705f);
     }
 
     private void previewMvxModel2() {
         Log.i(TAG, "previewMvxModel2");
-        File mvxFile = new File(modelDir, "MVX/2.mvx");
-        unitySDK.previewMantisVisionModel(mvxFile.toString());
-        unitySDK.setPreviewCameraDistance(5);
+        File modelFile = new File(modelDir, "Rose.glb");
+        unitySDK.previewCommon3DModel(modelFile.toString());
+        unitySDK.setPreviewCameraField(-0.068f, 0.068f, -0.068f, 0.068f, 0.125f, 0.504f);
     }
 }
