@@ -97,6 +97,19 @@ public class WTUnitySDK {
         UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "PreviewMvxModel", modelPath);
     }
 
+    public void setPreviewCameraRect(float x, float y, float width, float height) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("x", x);
+            json.put("y", y);
+            json.put("width", width);
+            json.put("height", height);
+        } catch (Exception e) {
+
+        }
+        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetPreviewRect", json.toString());
+    }
+
     public void setPreviewCameraDistance(float d) {
         if (d <= 0) return;
         UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetPreviewCameraDistance", String.format("-%f", d));
