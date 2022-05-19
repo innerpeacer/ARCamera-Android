@@ -88,15 +88,17 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
 
     private void previewMvxModel1() {
         Log.i(TAG, "previewMvxModel1");
-        File mvxFile = new File(modelDir, "MVX/1.mvx");
-        unitySDK.previewMantisVisionModel(mvxFile.toString());
-        unitySDK.setPreviewCameraField(-0.614f, 0.614f, -0.472f, 0.472f, -0.019f, 1.705f);
+        String fileName = "1";
+        File modelFile = new File(modelDir, "MVX/" + fileName + ".mvx");
+        File modelInfoFile = new File(modelDir, "MVX/" + fileName + ".json");
+        unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
     private void previewMvxModel2() {
         Log.i(TAG, "previewMvxModel2");
-        File modelFile = new File(modelDir, "Rose.glb");
-        unitySDK.previewCommon3DModel(modelFile.toString());
-        unitySDK.setPreviewCameraField(-0.068f, 0.068f, -0.068f, 0.068f, 0.125f, 0.504f);
+        String fileName = "Flamingo";
+        File modelFile = new File(modelDir, fileName + ".glb");
+        File modelInfoFile = new File(modelDir, fileName + ".json");
+        unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 }

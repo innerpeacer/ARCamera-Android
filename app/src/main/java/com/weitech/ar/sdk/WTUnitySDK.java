@@ -101,6 +101,16 @@ public class WTUnitySDK {
         UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "PreviewCommon3DModel", modelPath);
     }
 
+    public void previewModel(String modelPath, String modelInfoPath) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("modelPath", modelPath);
+            json.put("modelInfoPath", modelInfoPath);
+        } catch (Exception e) {
+        }
+        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "PreviewModel", json.toString());
+    }
+
     public void setPreviewCameraRect(float x, float y, float width, float height) {
         JSONObject json = new JSONObject();
         try {
