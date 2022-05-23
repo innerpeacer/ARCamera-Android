@@ -18,7 +18,7 @@ import com.weitech.ar.sdk.bridge.WTUnityCallbackUtils;
 import java.io.File;
 
 
-public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCallNativeProxy.WTUnityShootingCallbackListener, WTUnityCallNativeProxy.WTModelHandlingCallbackListener {
+public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCallNativeProxy.WTUnitySceneControllerCallbackListener, WTUnityCallNativeProxy.WTUnityShootingCallbackListener, WTUnityCallNativeProxy.WTModelHandlingCallbackListener {
     static final String TAG = "ARCameraActivity";
 
     WTUnitySDK unitySDK;
@@ -44,9 +44,32 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
 //
         addButtonsToUnityFrame();
 //
+        WTUnityCallbackUtils.registerUnitySceneControllerCallbackListener(this);
         WTUnityCallbackUtils.registerUnityShootingCallbackListener(this);
         WTUnityCallbackUtils.registerModelHandlingCallbackListener(this);
-        unitySDK.setShootingParams(WTUnitySDK.WTShootingParams.HD);
+    }
+
+
+    @Override
+    public void unityDidLoadEntryScene() {
+        unitySDK.switchToScene("ARCameraScene");
+    }
+
+    @Override
+    public void unityDidLoadExitScene() {
+
+    }
+
+    @Override
+    public void unityDidLoadScene(String sceneName) {
+        if (sceneName.equals("ARCameraScene")) {
+            unitySDK.setShootingParams(WTUnitySDK.WTShootingParams.HD);
+        }
+    }
+
+    @Override
+    public void unityDidUnloadScene(String sceneName) {
+
     }
 
     private void addButtonsToUnityFrame() {

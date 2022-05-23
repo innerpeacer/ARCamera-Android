@@ -22,6 +22,18 @@
 //        sceneControllerCallbackListener = null;
 //    }
 //
+//    void NotifyEntrySceneLoaded() {
+//        if (sceneControllerCallbackListener != null) {
+//            sceneControllerCallbackListener.unityDidLoadEntryScene();
+//        }
+//    }
+//
+//    void NotifyExitSceneLoaded() {
+//        if (sceneControllerCallbackListener != null) {
+//            sceneControllerCallbackListener.unityDidLoadExitScene();
+//        }
+//    }
+//
 //    void NotifySceneLoaded(String sceneName) {
 //        if (sceneControllerCallbackListener != null) {
 //            sceneControllerCallbackListener.unityDidLoadScene(sceneName);

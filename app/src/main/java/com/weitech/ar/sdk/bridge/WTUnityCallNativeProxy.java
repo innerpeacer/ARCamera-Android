@@ -9,6 +9,10 @@
 //    }
 //
 //    public interface WTUnitySceneControllerCallbackListener {
+//        void unityDidLoadEntryScene();
+//
+//        void unityDidLoadExitScene();
+//
 //        void unityDidLoadScene(String sceneName);
 //
 //        void unityDidUnloadScene(String sceneName);

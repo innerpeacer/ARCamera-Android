@@ -14,7 +14,7 @@ import com.weitech.ar.sdk.bridge.WTUnityCallbackUtils;
 import java.io.File;
 
 
-public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCallNativeProxy.WTUnitySceneControllerCallbackListener {
+public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCallNativeProxy.WTUnitySceneControllerCallbackListener, WTUnityCallNativeProxy.WTModelHandlingCallbackListener {
     static final String TAG = "ARPreviewActivity";
 
     WTUnitySDK unitySDK;
@@ -31,8 +31,7 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
 
         unitySDK = WTUnitySDK.SharedInstance();
         WTUnityCallbackUtils.registerUnitySceneControllerCallbackListener(this);
-        unitySDK.switchToScene("ARPreviewScene");
-
+        WTUnityCallbackUtils.registerModelHandlingCallbackListener(this);
         addButtonsToUnityFrame();
     }
 
@@ -68,6 +67,15 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
         }
     }
 
+    @Override
+    public void unityDidLoadEntryScene() {
+        unitySDK.switchToScene("ARPreviewScene");
+    }
+
+    @Override
+    public void unityDidLoadExitScene() {
+
+    }
 
     @Override
     public void unityDidLoadScene(String sceneName) {
@@ -100,5 +108,40 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
         File modelFile = new File(modelDir, fileName + ".glb");
         File modelInfoFile = new File(modelDir, fileName + ".json");
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
+    }
+
+    @Override
+    public void unityDidFinishLoadingModel(int modelType, String modelPath) {
+        Log.i(TAG, "Did Load Model: %@" + modelPath);
+    }
+
+    @Override
+    public void unityDidFailedLoadingModel(int modelType, String modelPath, String description) {
+        Log.i(TAG, "Failed Load Model: %@" + description);
+    }
+
+    @Override
+    public void unityDidRemoveModel(int modelType, String modelID) {
+
+    }
+
+    @Override
+    public void unityDidUnSelectModel(int modelType, String modelID) {
+
+    }
+
+    @Override
+    public void unityDidSelectModel(int modelType, String modelID) {
+
+    }
+
+    @Override
+    public void unityDidPlaceModel(int modelType, String modelID) {
+
+    }
+
+    @Override
+    public void unityDidFailedRemovingModel(String modelID, String description) {
+
     }
 }

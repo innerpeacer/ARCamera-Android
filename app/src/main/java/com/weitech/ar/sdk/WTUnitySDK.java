@@ -1,10 +1,13 @@
 package com.weitech.ar.sdk;
 
 import com.unity3d.player.UnityPlayer;
+import com.weitech.ar.sdk.bridge.WTUnitySystemEventProxy;
+import com.weitech.ar.sdk.bridge.WTUnitySystemEventUtils;
 
 import org.json.JSONObject;
 
-public class WTUnitySDK {
+public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCallbackListener {
+    private static final String TAG = "WTUnitySDK";
 
     public enum WTShootingParams {
         HD,
@@ -30,11 +33,12 @@ public class WTUnitySDK {
 
     private static WTUnitySDK sharedInstance = new WTUnitySDK();
 
+    private static final String SHARED_SCENE_MANAGER = "SharedSceneManager";
     private static final String AR_CAMERA_SCENE_CONTROLLER = "ARCameraSceneController";
     private static final String AR_CAMERA_PREVIEW_CONTROLLER = "ARPreviewSceneController";
 
     private WTUnitySDK() {
-
+        WTUnitySystemEventUtils.registerUnitySystemEventCallbackListener(this);
     }
 
     public static WTUnitySDK SharedInstance() {
@@ -42,7 +46,7 @@ public class WTUnitySDK {
     }
 
     public void switchToScene(String sceneName) {
-        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SwitchScene", sceneName);
+        UnityPlayer.UnitySendMessage(SHARED_SCENE_MANAGER, "SwitchScene", sceneName);
     }
 
     public void useMantisVisionModel(String modelPath) {
@@ -163,5 +167,15 @@ public class WTUnitySDK {
 
     public void SendUnityMessage(String object, String methodName, String param) {
         UnityPlayer.UnitySendMessage(object, methodName, param);
+    }
+
+    @Override
+    public void unitySystemEntrySceneDidLoad() {
+//        Log.i(TAG, "unitySystemEntrySceneDidLoad");
+    }
+
+    @Override
+    public void unitySystemExitSceneDidLoad() {
+//        Log.i(TAG, "unitySystemExitSceneDidLoad");
     }
 }
