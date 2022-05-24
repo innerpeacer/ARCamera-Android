@@ -133,20 +133,20 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 //        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetPreviewCameraDistance", String.format("-%f", d));
 //    }
 
-    public void setPreviewCameraField(float xMin, float xMax, float yMin, float yMax, float zMin, float zMax) {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("xMin", xMin);
-            json.put("xMax", xMax);
-            json.put("yMin", yMin);
-            json.put("yMax", yMax);
-            json.put("zMin", zMin);
-            json.put("zMax", zMax);
-        } catch (Exception e) {
-
-        }
-        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetCameraField", json.toString());
-    }
+//    public void setPreviewCameraField(float xMin, float xMax, float yMin, float yMax, float zMin, float zMax) {
+//        JSONObject json = new JSONObject();
+//        try {
+//            json.put("xMin", xMin);
+//            json.put("xMax", xMax);
+//            json.put("yMin", yMin);
+//            json.put("yMax", yMax);
+//            json.put("zMin", zMin);
+//            json.put("zMax", zMax);
+//        } catch (Exception e) {
+//
+//        }
+//        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetCameraField", json.toString());
+//    }
 
     public void setPreviewBackgroundColor(float red, float green, float blue, float alpha) {
         JSONObject json = new JSONObject();
