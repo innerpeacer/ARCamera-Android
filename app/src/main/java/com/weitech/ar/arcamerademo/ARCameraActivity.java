@@ -52,7 +52,7 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
 
     @Override
     public void unityDidLoadEntryScene() {
-        unitySDK.switchToScene("ARCameraScene");
+        unitySDK.switchToScene(WTUnitySDK.CAMERA_SCENE);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
 
     @Override
     public void unityDidLoadScene(String sceneName) {
-        if (sceneName.equals("ARCameraScene")) {
+        if (sceneName.equals(WTUnitySDK.CAMERA_SCENE)) {
             unitySDK.setShootingParams(WTUnitySDK.WTShootingParams.HD);
         }
     }

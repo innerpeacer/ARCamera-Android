@@ -69,7 +69,7 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
 
     @Override
     public void unityDidLoadEntryScene() {
-        unitySDK.switchToScene("ARPreviewScene");
+        unitySDK.switchToScene(WTUnitySDK.PREVIEW_SCENE);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
     @Override
     public void unityDidLoadScene(String sceneName) {
         Log.i(TAG, "======== unityDidLoadScene: " + sceneName);
-        if (sceneName.equals("ARPreviewScene")) {
+        if (sceneName.equals(WTUnitySDK.PREVIEW_SCENE)) {
 //            unitySDK.setPreviewBackgroundColor(0.5f, 0.0f, 0.8f, 1.0f);
             unitySDK.setPreviewCameraRect(0, 0.1f, 1.0f, 0.8f);
             previewMvxModel1();
