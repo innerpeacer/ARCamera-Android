@@ -70,6 +70,9 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "RemovePlacedModelObject", objectID);
     }
 
+    public void setEditModeWaitingInterval(float timeInterval) {
+        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SetEditModeWaitingInterval", timeInterval + "");
+    }
 
     public void setShootingParams(WTShootingParams params) {
         double photoSuperSize = 1;

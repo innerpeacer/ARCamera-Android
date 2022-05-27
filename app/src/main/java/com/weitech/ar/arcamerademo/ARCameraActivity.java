@@ -64,6 +64,7 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
     public void unityDidLoadScene(String sceneName) {
         if (sceneName.equals(WTUnitySDK.CAMERA_SCENE)) {
             unitySDK.setShootingParams(WTUnitySDK.WTShootingParams.HD);
+            unitySDK.setEditModeWaitingInterval(1.0f);
         }
     }
 
