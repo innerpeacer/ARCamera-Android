@@ -4,6 +4,7 @@ import com.unity3d.player.UnityPlayer;
 import com.weitech.ar.sdk.bridge.WTUnitySystemEventProxy;
 import com.weitech.ar.sdk.bridge.WTUnitySystemEventUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCallbackListener {
@@ -38,7 +39,7 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 
     private static final String SHARED_SCENE_MANAGER = "SharedSceneManager";
     private static final String AR_CAMERA_SCENE_CONTROLLER = "ARCameraSceneController";
-    private static final String AR_CAMERA_PREVIEW_CONTROLLER = "ARPreviewSceneController";
+    private static final String AR_PREVIEW_SCENE_CONTROLLER = "ARPreviewSceneController";
 
     private WTUnitySDK() {
         WTUnitySystemEventUtils.registerUnitySystemEventCallbackListener(this);
@@ -104,11 +105,11 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
     }
 
     public void previewMantisVisionModel(String modelPath) {
-        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "PreviewMvxModel", modelPath);
+        UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "PreviewMvxModel", modelPath);
     }
 
     public void previewCommon3DModel(String modelPath) {
-        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "PreviewCommon3DModel", modelPath);
+        UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "PreviewCommon3DModel", modelPath);
     }
 
     public void previewModel(String modelPath, String modelInfoPath) {
@@ -118,7 +119,7 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
             json.put("modelInfoPath", modelInfoPath);
         } catch (Exception e) {
         }
-        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "PreviewModel", json.toString());
+        UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "PreviewModel", json.toString());
     }
 
     public void setPreviewCameraRect(float x, float y, float width, float height) {
@@ -131,7 +132,7 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
         } catch (Exception e) {
 
         }
-        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetPreviewRect", json.toString());
+        UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "SetPreviewRect", json.toString());
     }
 
 //    public void setPreviewCameraDistance(float d) {
@@ -164,7 +165,27 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
         } catch (Exception e) {
 
         }
-        UnityPlayer.UnitySendMessage(AR_CAMERA_PREVIEW_CONTROLLER, "SetBackgroundColor", json.toString());
+        UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "SetBackgroundColor", json.toString());
+    }
+
+    private void SetMvxFrameParams(String sceneName, float targetFPS, int skipFrame) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("targetFPS", targetFPS);
+            json.put("skipFrame", skipFrame);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        UnityPlayer.UnitySendMessage(sceneName, "SetMvxFrameParams", json.toString());
+    }
+
+    public void setPreviewMvxFrameParams(float targetFPS, int skipFrame) {
+        SetMvxFrameParams(AR_PREVIEW_SCENE_CONTROLLER, targetFPS, skipFrame);
+    }
+
+
+    public void setCameraMvxFrameParams(float targetFPS, int skipFrame) {
+        SetMvxFrameParams(AR_CAMERA_SCENE_CONTROLLER, targetFPS, skipFrame);
     }
 
     public void ChangeCubeColor(String color) {
