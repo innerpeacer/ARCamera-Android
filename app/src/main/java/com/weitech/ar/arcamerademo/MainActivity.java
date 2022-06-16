@@ -19,33 +19,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtons() {
+        int width = AppUtils.GetScreenWidth();
+        int height = AppUtils.GetScreenHeight();
+        int buttonWidth = (int) (width * 0.4);
+        int buttonHeight = (int) (height * 0.075);
         ConstraintLayout layout = findViewById(R.id.main);
         {
             Button button = new Button(this);
             button.setText("AppTest");
-            button.setX(400);
-            button.setY(500);
-
+            button.setX((int) (width * 0.3));
+            button.setY((int) (height * 0.2));
             button.setOnClickListener(v -> startTestUnity());
-            layout.addView(button);
+            layout.addView(button, buttonWidth, buttonHeight);
         }
         {
             Button button = new Button(this);
             button.setText("AR Camera");
-            button.setX(400);
-            button.setY(1000);
-
+            button.setX((int) (width * 0.3));
+            button.setY((int) (height * 0.4));
             button.setOnClickListener(v -> startCameraUnity());
-            layout.addView(button);
+            layout.addView(button, buttonWidth, buttonHeight);
         }
         {
             Button button = new Button(this);
             button.setText("AR Preview");
-            button.setX(400);
-            button.setY(1500);
-
+            button.setX((int) (width * 0.3));
+            button.setY((int) (height * 0.6));
             button.setOnClickListener(v -> startPreviewUnity());
-            layout.addView(button);
+            layout.addView(button, buttonWidth, buttonHeight);
         }
     }
 

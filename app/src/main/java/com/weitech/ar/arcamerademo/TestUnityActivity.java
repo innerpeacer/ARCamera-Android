@@ -39,14 +39,16 @@ public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCal
 
     private void addButtonsToUnityFrame() {
         FrameLayout layout = mUnityPlayer;
-        int buttonWidth = 500;
-        int buttonHeight = 200;
+        int width = AppUtils.GetScreenWidth();
+        int height = AppUtils.GetScreenHeight();
+        int buttonWidth = (int) (width * 0.4);
+        int buttonHeight = (int) (height * 0.08);
 
         {
             Button button = new Button(this);
             button.setText("Load Model");
-            button.setX(500);
-            button.setY(400);
+            button.setX((int) (width * 0.5));
+            button.setY((int) (height * 0.2));
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     sendUnityLoadModel();
@@ -58,8 +60,8 @@ public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCal
         {
             Button button = new Button(this);
             button.setText("Load Mvx");
-            button.setX(500);
-            button.setY(700);
+            button.setX((int) (width * 0.5));
+            button.setY((int) (height * 0.3));
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     sendUnityLoadMvx();
@@ -71,8 +73,8 @@ public class TestUnityActivity extends UnityPlayerActivity implements WTUnityCal
         {
             Button button = new Button(this);
             button.setText("Send Unity Message");
-            button.setX(100);
-            button.setY(2000);
+            button.setX((int) (width * 0.1));
+            button.setY((int) (height * 0.8));
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     sendUnityMessage();
