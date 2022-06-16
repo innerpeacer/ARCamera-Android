@@ -52,7 +52,11 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
 
     @Override
     public void unityDidLoadEntryScene() {
-        unitySDK.switchToScene(WTUnitySDK.CAMERA_SCENE);
+        if (AppUtils.IsHuaweiPhone()) {
+            unitySDK.switchToScene(WTUnitySDK.CAMERA_SCENE_HUAWEI);
+        } else {
+            unitySDK.switchToScene(WTUnitySDK.CAMERA_SCENE);
+        }
     }
 
     @Override

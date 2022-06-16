@@ -11,6 +11,7 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
     private static final String TAG = "WTUnitySDK";
 
     public static final String CAMERA_SCENE = "ARCameraScene";
+    public static final String CAMERA_SCENE_HUAWEI = "ARCameraSceneForHuawei";
     public static final String PREVIEW_SCENE = "ARPreviewScene";
 
     public enum WTShootingParams {
