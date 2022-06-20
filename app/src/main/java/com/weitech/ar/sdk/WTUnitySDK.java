@@ -12,6 +12,7 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 
     public static final String CAMERA_SCENE = "ARCameraScene";
     public static final String CAMERA_SCENE_HUAWEI = "ARCameraSceneForHuawei";
+    public static final String CAMERA_SCENE_UNSUPPORTED = "ARCameraUnsupportedScene";
     public static final String PREVIEW_SCENE = "ARPreviewScene";
 
     public enum WTShootingParams {
@@ -40,6 +41,7 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 
     private static final String SHARED_SCENE_MANAGER = "SharedSceneManager";
     private static final String AR_CAMERA_SCENE_CONTROLLER = "ARCameraSceneController";
+    private static final String AR_CAMERA_UNSUPPORTED_SCENE_CONTROLLER = "ARCameraUnsupportedSceneController";
     private static final String AR_PREVIEW_SCENE_CONTROLLER = "ARPreviewSceneController";
 
     private WTUnitySDK() {
@@ -92,6 +94,17 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SetVideoFrameRate", String.format("%d", videoFrameRate));
     }
 
+    public void takePhotoInUnsupported(String pID) {
+        UnityPlayer.UnitySendMessage(AR_CAMERA_UNSUPPORTED_SCENE_CONTROLLER, "TakePhoto", pID);
+    }
+
+    public void startRecordingVideoInUnsupported(String vID) {
+        UnityPlayer.UnitySendMessage(AR_CAMERA_UNSUPPORTED_SCENE_CONTROLLER, "StartRecordingVideo", vID);
+    }
+
+    public void stopRecordingVideoInUnsupported() {
+        UnityPlayer.UnitySendMessage(AR_CAMERA_UNSUPPORTED_SCENE_CONTROLLER, "StopRecordingVideo", "");
+    }
 
     public void takePhoto(String pID) {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "TakePhoto", pID);
