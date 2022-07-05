@@ -94,6 +94,10 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SetVideoFrameRate", String.format("%d", videoFrameRate));
     }
 
+    public void pauseCameraInUnsupported() {
+        UnityPlayer.UnitySendMessage(AR_CAMERA_UNSUPPORTED_SCENE_CONTROLLER, "PauseCamera", "");
+    }
+
     public void takePhotoInUnsupported(String pID) {
         UnityPlayer.UnitySendMessage(AR_CAMERA_UNSUPPORTED_SCENE_CONTROLLER, "TakePhoto", pID);
     }
