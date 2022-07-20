@@ -45,12 +45,13 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
         {
             Button button = new Button(this);
             button.setText("Preview 1");
+            button.getBackground().setAlpha(100);
             button.setX((int) (width * 0.4));
             button.setY((int) (height * 0.2));
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    previewMvxModel1();
+                    previewModel1();
                 }
             });
             layout.addView(button, buttonWidth, buttonHeight);
@@ -59,11 +60,12 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
         {
             Button button = new Button(this);
             button.setText("Preview 2");
+            button.getBackground().setAlpha(100);
             button.setX((int) (width * 0.4));
             button.setY((int) (height * 0.3));
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    previewMvxModel2();
+                    previewModel2();
                 }
             });
             layout.addView(button, buttonWidth, buttonHeight);
@@ -86,7 +88,7 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
         if (sceneName.equals(WTUnitySDK.PREVIEW_SCENE)) {
 //            unitySDK.setPreviewBackgroundColor(0.5f, 0.0f, 0.8f, 1.0f);
             unitySDK.setPreviewCameraRect(0, 0.1f, 1.0f, 0.8f);
-            previewMvxModel1();
+            previewModel1();
         }
     }
 
@@ -97,19 +99,38 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
     }
 
 
-    private void previewMvxModel1() {
+    private void previewModel1() {
         Log.i(TAG, "previewMvxModel1");
         String fileName = "1";
-        File modelFile = new File(modelDir, "MVX/" + fileName + ".mvx");
-        File modelInfoFile = new File(modelDir, "MVX/" + fileName + ".json");
+        previewMVXModel(fileName);
+    }
+
+    private void previewModel2() {
+        Log.i(TAG, "previewMvxModel2");
+        if (Math.random() > 0.5) {
+            String fileName = "Flamingo";
+            previewGLBModel(fileName);
+        } else {
+            String fileName = "girl";
+            previewWABModel(fileName);
+        }
+    }
+
+    private void previewMVXModel(String modelName) {
+        File modelFile = new File(modelDir, "MVX/" + modelName + ".mvx");
+        File modelInfoFile = new File(modelDir, "MVX/" + modelName + ".json");
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
-    private void previewMvxModel2() {
-        Log.i(TAG, "previewMvxModel2");
-        String fileName = "Flamingo";
-        File modelFile = new File(modelDir, fileName + ".glb");
-        File modelInfoFile = new File(modelDir, fileName + ".json");
+    private void previewGLBModel(String modelName) {
+        File modelFile = new File(modelDir, "GLB/" + modelName + ".glb");
+        File modelInfoFile = new File(modelDir, "GLB/" + modelName + ".json");
+        unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
+    }
+
+    private void previewWABModel(String modelName) {
+        File modelFile = new File(modelDir, "WAB/" + modelName + ".wab");
+        File modelInfoFile = new File(modelDir, "WAB/" + modelName + ".json");
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
