@@ -111,7 +111,7 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
             String fileName = "Flamingo";
             previewGLBModel(fileName);
         } else {
-            String fileName = "girl";
+            String fileName = "techgirl";
             previewWABModel(fileName);
         }
     }

@@ -56,16 +56,24 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
         UnityPlayer.UnitySendMessage(SHARED_SCENE_MANAGER, "SwitchScene", sceneName);
     }
 
-    public void useMantisVisionModel(String modelPath) {
-        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseMvx", modelPath);
+    public void useModel(String modelPath, String modelInfoPath) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("modelPath", modelPath);
+            json.put("modelInfoPath", modelInfoPath);
+        } catch (Exception e) {
+        }
+        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseModel", json.toString());
     }
 
-    public void useCommon3DModel(String modelPath) {
-        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseModel", modelPath);
-    }
-
-    public void useCommon3DModelAsync(String modelPath) {
-        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseModelAsync", modelPath);
+    public void useModelAsync(String modelPath, String modelInfoPath) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("modelPath", modelPath);
+            json.put("modelInfoPath", modelInfoPath);
+        } catch (Exception e) {
+        }
+        UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "UseModelAsync", json.toString());
     }
 
 
@@ -120,14 +128,6 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 
     public void stopRecordingVideo() {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "StopRecordingVideo", "");
-    }
-
-    public void previewMantisVisionModel(String modelPath) {
-        UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "PreviewMvxModel", modelPath);
-    }
-
-    public void previewCommon3DModel(String modelPath) {
-        UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "PreviewCommon3DModel", modelPath);
     }
 
     public void previewModel(String modelPath, String modelInfoPath) {

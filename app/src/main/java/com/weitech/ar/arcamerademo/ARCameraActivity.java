@@ -90,12 +90,12 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
 
             ImageButton modelButton = modelView.findViewById(R.id.modelButton);
             modelButton.setOnClickListener((view -> {
-                UseCommon3DModel();
+                useWABModel("techgirl", true);
             }));
 
             ImageButton mvxButton = modelView.findViewById(R.id.mvxButton);
             mvxButton.setOnClickListener((view -> {
-                UseMvxModel();
+                UseGLBModel("flamingo", false);
             }));
         }
 
@@ -167,21 +167,39 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         }
     }
 
-    private void UseCommon3DModel() {
+    private void UseGLBModel(String modelName, boolean async) {
         Log.i(TAG, "UseCommon3DModel");
-        File modelFile = new File(modelDir, "Flamingo.glb");
-        Log.i(TAG, modelFile.toString());
-//        unitySDK.useCommon3DModel(modelFile.toString());
-        unitySDK.useCommon3DModelAsync(modelFile.toString());
+        File modelFile = new File(modelDir, "GLB/" + modelName + ".glb");
+        File modelInfoFile = new File(modelDir, "GLB/" + modelName + ".json");
+        if (async) {
+            unitySDK.useModelAsync(modelFile.toString(), modelInfoFile.toString());
+        } else {
+            unitySDK.useModel(modelFile.toString(), modelInfoFile.toString());
+        }
         SwitchView();
     }
 
-    private void UseMvxModel() {
+    private void UseMVXModel(String modelName, boolean async) {
         Log.i(TAG, "UseMvxModel");
-        File mvxFile = new File(modelDir, "MVX/1.mvx");
-        Log.i(TAG, mvxFile.toString());
-        unitySDK.useMantisVisionModel(mvxFile.toString());
+        File modelFile = new File(modelDir, "MVX/" + modelName + ".mvx");
+        File modelInfoFile = new File(modelDir, "MVX/" + modelName + ".json");
+        if (async) {
+            unitySDK.useModelAsync(modelFile.toString(), modelInfoFile.toString());
+        } else {
+            unitySDK.useModel(modelFile.toString(), modelInfoFile.toString());
+        }
         SwitchView();
+    }
+
+    private void useWABModel(String modelName, boolean async) {
+        Log.i(TAG, "useWABModel");
+        File modelFile = new File(modelDir, "WAB/" + modelName + ".wab");
+        File modelInfoFile = new File(modelDir, "WAB/" + modelName + ".json");
+        if (async) {
+            unitySDK.useModelAsync(modelFile.toString(), modelInfoFile.toString());
+        } else {
+            unitySDK.useModel(modelFile.toString(), modelInfoFile.toString());
+        }
     }
 
     private void TakePhoto() {
