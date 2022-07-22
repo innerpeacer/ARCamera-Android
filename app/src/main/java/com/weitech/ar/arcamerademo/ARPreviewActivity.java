@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.unity3d.player.UnityPlayerActivity;
+import com.weitech.ar.sdk.WTModelInfo;
 import com.weitech.ar.sdk.WTUnitySDK;
 import com.weitech.ar.sdk.bridge.WTUnityCallNativeProxy;
 import com.weitech.ar.sdk.bridge.WTUnityCallbackUtils;
@@ -19,6 +20,8 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
 
     WTUnitySDK unitySDK;
     File modelDir;
+    WTModelInfo currentModelInfo;
+    int testAnimationIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,20 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
             });
             layout.addView(button, buttonWidth, buttonHeight);
         }
+
+        {
+            Button button = new Button(this);
+            button.setText("Play Animation");
+            button.getBackground().setAlpha(100);
+            button.setX((int) (width * 0.4));
+            button.setY((int) (height * 0.6));
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    playAnimation();
+                }
+            });
+            layout.addView(button, buttonWidth, buttonHeight);
+        }
     }
 
     @Override
@@ -99,6 +116,20 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
     }
 
 
+    private void playAnimation() {
+        Log.i(TAG, "========= Play Animation");
+        if (currentModelInfo == null)
+            return;
+
+        if (testAnimationIndex >= currentModelInfo.animation.clips.size()) {
+            testAnimationIndex = 0;
+        }
+
+        WTModelInfo.WTAnimationClip clip = currentModelInfo.animation.clips.get(testAnimationIndex++);
+        unitySDK.playPreviewAnimation(clip.clipName);
+    }
+
+
     private void previewModel1() {
         Log.i(TAG, "previewMvxModel1");
         String fileName = "1";
@@ -119,18 +150,21 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
     private void previewMVXModel(String modelName) {
         File modelFile = new File(modelDir, "MVX/" + modelName + ".mvx");
         File modelInfoFile = new File(modelDir, "MVX/" + modelName + ".json");
+        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
     private void previewGLBModel(String modelName) {
         File modelFile = new File(modelDir, "GLB/" + modelName + ".glb");
         File modelInfoFile = new File(modelDir, "GLB/" + modelName + ".json");
+        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
     private void previewWABModel(String modelName) {
         File modelFile = new File(modelDir, "WAB/" + modelName + ".wab");
         File modelInfoFile = new File(modelDir, "WAB/" + modelName + ".json");
+        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 

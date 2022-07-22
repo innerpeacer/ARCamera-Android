@@ -1,6 +1,7 @@
 package com.weitech.ar.sdk;
 
 import com.unity3d.player.UnityPlayer;
+import com.unity3d.player.UnityPlayerActivity;
 import com.weitech.ar.sdk.bridge.WTUnitySystemEventProxy;
 import com.weitech.ar.sdk.bridge.WTUnitySystemEventUtils;
 
@@ -21,10 +22,11 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
     }
 
     public enum WTModelType {
+        Unknown(0),
         Common3D(1),
         MantisVisionHD(2),
-//        MantisVisionSD(3)
-        ;
+        //        MantisVisionSD(3)
+        AssetBundles(4);
 
         private int value;
 
@@ -84,6 +86,12 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 
     public void setEditModeWaitingInterval(float timeInterval) {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SetEditModeWaitingInterval", timeInterval + "");
+    }
+    
+    public void playCameraAnimation(String clipName) {
+        if (clipName != null) {
+            UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "PlayAnimation", clipName);
+        }
     }
 
     public void setShootingParams(WTShootingParams params) {
@@ -184,6 +192,12 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 
         }
         UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "SetBackgroundColor", json.toString());
+    }
+
+    public void playPreviewAnimation(String clipName) {
+        if (clipName != null) {
+            UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "PlayAnimation", clipName);
+        }
     }
 
     private void SetMvxFrameParams(String sceneName, float targetFPS, int skipFrame) {
