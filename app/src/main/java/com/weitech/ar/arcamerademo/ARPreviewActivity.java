@@ -150,31 +150,29 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
     private void previewMVXModel(String modelName) {
         File modelFile = new File(modelDir, "MVX/" + modelName + ".mvx");
         File modelInfoFile = new File(modelDir, "MVX/" + modelName + ".json");
-        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
     private void previewGLBModel(String modelName) {
         File modelFile = new File(modelDir, "GLB/" + modelName + ".glb");
         File modelInfoFile = new File(modelDir, "GLB/" + modelName + ".json");
-        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
     private void previewWABModel(String modelName) {
         File modelFile = new File(modelDir, "WAB/" + modelName + ".wab");
         File modelInfoFile = new File(modelDir, "WAB/" + modelName + ".json");
-        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
     @Override
-    public void unityDidFinishLoadingModel(int modelType, String modelPath) {
+    public void unityDidFinishLoadingModel(int modelType, String modelPath, String modelInfoPath) {
         Log.i(TAG, "Did Load Model: %@" + modelPath);
+        currentModelInfo = WTModelInfo.FromFile(modelInfoPath);
     }
 
     @Override
-    public void unityDidFailedLoadingModel(int modelType, String modelPath, String description) {
+    public void unityDidFailedLoadingModel(int modelType, String modelPath, String modelInfoPath, String description) {
         Log.i(TAG, "Failed Load Model: %@" + description);
     }
 

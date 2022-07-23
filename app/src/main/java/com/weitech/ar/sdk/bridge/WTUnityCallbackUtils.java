@@ -86,16 +86,16 @@
 //        modelHandlingCallbackListener = null;
 //    }
 //
-//    void NotifyFinishLoadingModel(int modelType, String modelPath) {
+//    void NotifyFinishLoadingModel(int modelType, String modelPath, String modelInfoPath) {
 //        if (modelHandlingCallbackListener != null) {
-//            modelHandlingCallbackListener.unityDidFinishLoadingModel(modelType, modelPath);
+//            modelHandlingCallbackListener.unityDidFinishLoadingModel(modelType, modelPath, modelInfoPath);
 //        }
 //    }
 //
 //
-//    void NotifyFailedLoadingModel(int modelType, String modelPath, String description) {
+//    void NotifyFailedLoadingModel(int modelType, String modelPath, String modelInfoPath, String description) {
 //        if (modelHandlingCallbackListener != null) {
-//            modelHandlingCallbackListener.unityDidFailedLoadingModel(modelType, modelPath, description);
+//            modelHandlingCallbackListener.unityDidFailedLoadingModel(modelType, modelPath, modelInfoPath, description);
 //        }
 //    }
 //

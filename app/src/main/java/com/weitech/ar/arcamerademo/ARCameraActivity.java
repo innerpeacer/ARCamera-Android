@@ -189,7 +189,6 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         Log.i(TAG, "UseCommon3DModel");
         File modelFile = new File(modelDir, "GLB/" + modelName + ".glb");
         File modelInfoFile = new File(modelDir, "GLB/" + modelName + ".json");
-        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         if (async) {
             unitySDK.useModelAsync(modelFile.toString(), modelInfoFile.toString());
         } else {
@@ -202,7 +201,6 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         Log.i(TAG, "UseMvxModel");
         File modelFile = new File(modelDir, "MVX/" + modelName + ".mvx");
         File modelInfoFile = new File(modelDir, "MVX/" + modelName + ".json");
-        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         if (async) {
             unitySDK.useModelAsync(modelFile.toString(), modelInfoFile.toString());
         } else {
@@ -215,7 +213,6 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         Log.i(TAG, "useWABModel");
         File modelFile = new File(modelDir, "WAB/" + modelName + ".wab");
         File modelInfoFile = new File(modelDir, "WAB/" + modelName + ".json");
-        currentModelInfo = WTModelInfo.FromFile(modelInfoFile.toString());
         if (async) {
             unitySDK.useModelAsync(modelFile.toString(), modelInfoFile.toString());
         } else {
@@ -285,13 +282,13 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
 
 
     @Override
-    public void unityDidFinishLoadingModel(int modelType, String modelPath) {
+    public void unityDidFinishLoadingModel(int modelType, String modelPath, String modelInfoPath) {
         Log.i(TAG, String.format("======== Did Load Model: %s", modelPath));
-
+        currentModelInfo = WTModelInfo.FromFile(modelInfoPath);
     }
 
     @Override
-    public void unityDidFailedLoadingModel(int modelType, String modelPath, String description) {
+    public void unityDidFailedLoadingModel(int modelType, String modelPath, String modelInfoPath, String description) {
         Log.i(TAG, String.format("======== Failed Load Model: %s", description));
     }
 

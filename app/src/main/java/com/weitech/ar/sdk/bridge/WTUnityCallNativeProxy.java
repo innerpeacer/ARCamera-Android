@@ -27,9 +27,9 @@
 //    }
 //
 //    public interface WTModelHandlingCallbackListener {
-//        void unityDidFinishLoadingModel(int modelType, String modelPath);
+//        void unityDidFinishLoadingModel(int modelType, String modelPath, String modelInfoPath);
 //
-//        void unityDidFailedLoadingModel(int modelType, String modelPath, String description);
+//        void unityDidFailedLoadingModel(int modelType, String modelPath, String modelInfoPath, String description);
 //
 //        void unityDidPlaceModel(int modelType, String modelID);
 //
