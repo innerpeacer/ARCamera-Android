@@ -87,7 +87,7 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
     public void setEditModeWaitingInterval(float timeInterval) {
         UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "SetEditModeWaitingInterval", timeInterval + "");
     }
-    
+
     public void playCameraAnimation(String clipName) {
         if (clipName != null) {
             UnityPlayer.UnitySendMessage(AR_CAMERA_SCENE_CONTROLLER, "PlayAnimation", clipName);
@@ -192,6 +192,12 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 
         }
         UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "SetBackgroundColor", json.toString());
+    }
+
+    public void setPreviewBackgroundImage(String path) {
+        if (path != null) {
+            UnityPlayer.UnitySendMessage(AR_PREVIEW_SCENE_CONTROLLER, "SetBackgroundImage", path);
+        }
     }
 
     public void playPreviewAnimation(String clipName) {
