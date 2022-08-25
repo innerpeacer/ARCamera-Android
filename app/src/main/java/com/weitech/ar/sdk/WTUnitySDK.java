@@ -42,6 +42,7 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
     private static WTUnitySDK sharedInstance = new WTUnitySDK();
 
     private static final String SHARED_SCENE_MANAGER = "SharedSceneManager";
+    private static final String SHARED_BACKGROUND_MANAGER = "SharedBackgroundManager";
     private static final String AR_CAMERA_SCENE_CONTROLLER = "ARCameraSceneController";
     private static final String AR_CAMERA_UNSUPPORTED_SCENE_CONTROLLER = "ARCameraUnsupportedSceneController";
     private static final String AR_PREVIEW_SCENE_CONTROLLER = "ARPreviewSceneController";
@@ -56,6 +57,25 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
 
     public void switchToScene(String sceneName) {
         UnityPlayer.UnitySendMessage(SHARED_SCENE_MANAGER, "SwitchScene", sceneName);
+    }
+
+    public void setGlobalBackgroundColor(float red, float green, float blue, float alpha) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("r", red);
+            json.put("g", green);
+            json.put("b", blue);
+            json.put("a", alpha);
+        } catch (Exception e) {
+
+        }
+        UnityPlayer.UnitySendMessage(SHARED_BACKGROUND_MANAGER, "SetGlobalBackgroundColor", json.toString());
+    }
+
+    public void setGlobalBackgroundImage(String path) {
+        if (path != null) {
+            UnityPlayer.UnitySendMessage(SHARED_BACKGROUND_MANAGER, "SetGlobalBackgroundImage", path);
+        }
     }
 
     public void useModel(String modelPath, String modelInfoPath) {

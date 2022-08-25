@@ -91,6 +91,9 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
 
     @Override
     public void unityDidLoadEntryScene() {
+//        File imageFile = new File(modelDir, "Images/bg.jpg");
+//        unitySDK.setGlobalBackgroundImage(imageFile.toString());
+        unitySDK.setGlobalBackgroundColor(1.0f, 0.0f, 0.5f, 1.0f);
         unitySDK.switchToScene(WTUnitySDK.PREVIEW_SCENE);
     }
 
