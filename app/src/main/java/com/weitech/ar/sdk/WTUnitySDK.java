@@ -26,7 +26,10 @@ public class WTUnitySDK implements WTUnitySystemEventProxy.WTUnitySystemEventCal
         Common3D(1),
         MantisVisionHD(2),
         //        MantisVisionSD(3)
-        AssetBundles(4);
+        AssetBundles(4),
+
+        Frame3D(5),
+        FrameAssetBundles(6);
 
         private int value;
 

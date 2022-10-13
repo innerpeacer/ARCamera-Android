@@ -168,6 +168,18 @@ public class ARPreviewActivity extends UnityPlayerActivity implements WTUnityCal
         unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
     }
 
+    private void previewFrame3DModel(String modelName) {
+        File modelFile = new File(modelDir, "Frame3D/" + modelName + ".glb");
+        File modelInfoFile = new File(modelDir, "Frame3D/" + modelName + ".json");
+        unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
+    }
+
+    private void previewFrameWABModel(String modelName) {
+        File modelFile = new File(modelDir, "FrameWAB/" + modelName + ".wab");
+        File modelInfoFile = new File(modelDir, "FrameWAB/" + modelName + ".json");
+        unitySDK.previewModel(modelFile.toString(), modelInfoFile.toString());
+    }
+
     @Override
     public void unityDidFinishLoadingModel(int modelType, String modelPath, String modelInfoPath) {
         Log.i(TAG, "Did Load Model: %@" + modelPath);

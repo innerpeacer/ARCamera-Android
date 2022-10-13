@@ -220,6 +220,28 @@ public class ARCameraActivity extends UnityPlayerActivity implements WTUnityCall
         }
     }
 
+    private void useFrame3DModel(String modelName, boolean async) {
+        Log.i(TAG, "useFrame3DModel");
+        File modelFile = new File(modelDir, "Frame3D/" + modelName + ".glb");
+        File modelInfoFile = new File(modelDir, "Frame3D/" + modelName + ".json");
+        if (async) {
+            unitySDK.useModelAsync(modelFile.toString(), modelInfoFile.toString());
+        } else {
+            unitySDK.useModel(modelFile.toString(), modelInfoFile.toString());
+        }
+    }
+
+    private void useFrameWabModel(String modelName, boolean async) {
+        Log.i(TAG, "useFrameWabModel");
+        File modelFile = new File(modelDir, "FrameWAB/" + modelName + ".wab");
+        File modelInfoFile = new File(modelDir, "FrameWAB/" + modelName + ".json");
+        if (async) {
+            unitySDK.useModelAsync(modelFile.toString(), modelInfoFile.toString());
+        } else {
+            unitySDK.useModel(modelFile.toString(), modelInfoFile.toString());
+        }
+    }
+
     private void playAnimation() {
         Log.i(TAG, "========= Play Animation");
         if (currentModelInfo == null)

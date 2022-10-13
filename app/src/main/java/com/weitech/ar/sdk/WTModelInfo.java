@@ -42,6 +42,10 @@ public class WTModelInfo {
                 modelType = WTUnitySDK.WTModelType.Common3D;
             } else if (typeStr.equals("WAB")) {
                 modelType = WTUnitySDK.WTModelType.AssetBundles;
+            } else if (typeStr.equals("Frame3D")) {
+                modelType = WTUnitySDK.WTModelType.Frame3D;
+            } else if (typeStr.equals("FrameWAB")) {
+                modelType = WTUnitySDK.WTModelType.FrameAssetBundles;
             }
             modelInfo.modelType = modelType;
 
